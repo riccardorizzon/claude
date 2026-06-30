@@ -1,0 +1,6 @@
+.venv/
+chat/data/
+__pycache__/
+*.pyc
+.env
+*.db

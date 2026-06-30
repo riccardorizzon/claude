@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [],
+    "deny": []
+  },
+  "editor": {
+    "vimMode": false
+  },
+  "model": {
+    "default": ""
+  }
+}
