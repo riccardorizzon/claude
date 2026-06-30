@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursor Mini Chat</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>Mini Chat</h1>
+        <button id="new-chat-btn" class="btn primary" title="Nuova chat">+</button>
+      </div>
+      <div id="session-list" class="session-list"></div>
+      <div class="sidebar-footer">
+        <div id="auth-status" class="auth-status">Verifica auth…</div>
+      </div>
+    </aside>
+
+    <main class="chat-panel">
+      <header class="chat-header">
+        <div>
+          <h2 id="chat-title">Nuova chat</h2>
+          <select id="mode-select" class="mode-select">
+            <option value="ask">Ask — solo Q&A</option>
+            <option value="plan">Plan — pianificazione</option>
+            <option value="agent">Agent — coding completo</option>
+          </select>
+        </div>
+      </header>
+
+      <div id="messages" class="messages"></div>
+
+      <form id="composer" class="composer">
+        <textarea id="prompt-input" rows="1" placeholder="Scrivi un messaggio… (Invio invia, Shift+Invio a capo)"></textarea>
+        <button type="submit" class="btn primary" id="send-btn">Invia</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

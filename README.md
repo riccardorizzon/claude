@@ -1,61 +1,58 @@
-# Cursor CLI Chat — setup personalizzato
+# Cursor Mini Chat
 
-Chat CLI efficiente con account Cursor: regole personali, alias shell e installazione guidata.
+Chat web stile Cursor, alimentata dalla CLI `agent` del tuo account Cursor.
 
-## Setup rapido (sul tuo Mac/Linux)
+## Avvio rapido
 
 ```bash
-git clone <questo-repo>
-cd claude
-chmod +x setup/install.sh
+chmod +x start-chat.sh setup/install.sh
 ./setup/install.sh
-source ~/.zshrc   # oppure ~/.bashrc
-agent login
+
+# Auth (scegli una)
+export CURSOR_API_KEY="key_..."   # da cursor.com/settings
+# oppure: agent login
+
+# Avvia chat
+./start-chat.sh
 ```
 
-## Comandi quotidiani
+Apri **http://localhost:8765**
 
-| Comando | Cosa fa |
+### Demo senza auth (UI + risposte simulate)
+
+```bash
+CHAT_USE_MOCK=1 ./start-chat.sh
+```
+
+## Comandi utili
+
+| Comando | Descrizione |
 |---|---|
-| `chatnew` | Nuova conversazione ask (solo Q&A, non modifica file) |
-| `chat` | Riprende l'ultima chat ask |
-| `code` | Agente completo per coding nel progetto corrente |
-| `chats` | Elenco sessioni salvate |
-| `chatresume` | Riprende l'ultima sessione |
+| `./start-chat.sh` | Avvia server web chat |
+| `curl localhost:8765/api/health` | Stato auth e sessioni |
+| `pytest chat/tests -v` | Test automatici |
+
+## Modalità chat
+
+- **Ask** — Q&A read-only (come ChatGPT)
+- **Plan** — pianificazione senza modifiche
+- **Agent** — coding completo (file, shell, tool)
 
 ## Personalizzazione
 
-### Regole globali
+Regole globali: `.cursor/rules/personal-chat.mdc` (copiate in `~/.cursor/rules/` da `setup/install.sh`)
 
-Modifica `~/.cursor/rules/personal-chat.mdc` dopo l'install, oppure edita il file sorgente in `.cursor/rules/personal-chat.mdc` e rilancia `./setup/install.sh`.
+## Documentazione
 
-Aggiungi il tuo stack, preferenze di tono e vincoli di lavoro nella sezione "Contesto tecnico".
-
-### Regole per progetto
-
-Crea `.cursor/rules/` dentro un repo specifico per override locali (es. convenzioni del team).
-
-### Config CLI
-
-File: `~/.cursor/cli-config.json` — modello default, vim mode, permessi comandi.
-
-### MCP (opzionale)
-
-File: `~/.cursor/mcp.json` — integra GitHub, Datadog, database, ecc.
+- [Piano operativo end-to-end](docs/OPERATIONS.md)
+- [Piano implementazione](docs/superpowers/plans/2026-06-30-cursor-chat-webapp.md)
 
 ## Struttura
 
 ```
-.cursor/rules/personal-chat.mdc   # Regole personali (sorgente)
-setup/install.sh                # Installa CLI, regole, alias
-setup/aliases.sh                # Alias shell
-setup/cli-config.example.json   # Config CLI di base
+chat/app/          Backend FastAPI + wrapper agent CLI
+chat/static/       UI chat (HTML/CSS/JS)
+chat/data/         Sessioni SQLite (generato)
+start-chat.sh      Avvio one-command
+setup/             Install CLI, regole, alias shell
 ```
-
-## Upgrade futuro
-
-Se vuoi una TUI più ricca (pannelli, diff, slash command):
-
-- [OpenCode](https://github.com/anomalyco/opencode) + [cursor-oauth-opencode](https://github.com/jaredboynton/cursor-oauth-opencode)
-
-Le regole in `~/.cursor/rules/` restano valide.
