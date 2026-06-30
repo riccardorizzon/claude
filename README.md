@@ -1,51 +1,36 @@
-# Cursor Mini Chat
+# Cursor — Agente personale
 
-Chat web stile Cursor, alimentata dalla CLI `agent` del tuo account Cursor.
+Questa repo è la **base per le chat Cursor**: ogni nuova conversazione eredita automaticamente le tue preferenze.
 
-## Avvio rapido
+## Uso (30 secondi)
 
-```bash
-chmod +x start-chat.sh setup/install.sh
-./setup/install.sh
+1. Apri Cursor su questa repo
+2. **Nuova chat** o **Cloud Agent** → l'agente personale è già attivo
+3. Scrivi e lavora — tono, lingua e regole sono già configurati
 
-# Auth (scegli una)
-export CURSOR_API_KEY="key_..."   # da cursor.com/settings
-# oppure: agent login
+## Dove personalizzare
 
-# Avvia chat
-./start-chat.sh
-```
-
-Apri **http://localhost:8765**
-
-### Demo senza auth (UI + risposte simulate)
-
-```bash
-CHAT_USE_MOCK=1 ./start-chat.sh
-```
-
-## Comandi utili
-
-| Comando | Descrizione |
+| File | Cosa controlla |
 |---|---|
-| `./start-chat.sh` | Avvia server web chat |
-| `curl localhost:8765/api/health` | Stato auth e sessioni |
-| `pytest chat/tests -v` | Test automatici |
+| [`AGENTS.md`](AGENTS.md) | Identità e regole dell'agente (sempre attive) |
+| [`.cursor/rules/personal-chat.mdc`](.cursor/rules/personal-chat.mdc) | Stile, comportamento, stack |
 
-## Modalità chat
+Modifica questi file, fai commit — ogni nuova chat userà la versione aggiornata.
 
-- **Ask** — Q&A read-only (come ChatGPT)
-- **Plan** — pianificazione senza modifiche
-- **Agent** — coding completo (file, shell, tool)
+---
 
-## Personalizzazione
+## Setup opzionale (CLI / web app)
 
-Regole globali: `.cursor/rules/personal-chat.mdc` (copiate in `~/.cursor/rules/` da `setup/install.sh`)
+Il resto del repo include anche setup CLI e mini chat web (non necessari se usi solo Cursor chat):
 
-## Documentazione
+```bash
+chmod +x setup/install.sh
+./setup/install.sh
+```
 
-- [Piano operativo end-to-end](docs/OPERATIONS.md)
-- [Piano implementazione](docs/superpowers/plans/2026-06-30-cursor-chat-webapp.md)
+Vedi [`docs/OPERATIONS.md`](docs/OPERATIONS.md) per la web app locale.
+
+---
 
 ## Struttura
 
